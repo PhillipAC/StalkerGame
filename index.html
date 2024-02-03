@@ -8,10 +8,86 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
         <style>
+
+            body {
+                background-color: black;
+            }
+
+            .header-content{
+                margin: auto;
+                width: 190px;
+                margin-bottom: 10px;
+                color: white;
+            }
+
+            .sub-text{
+                font-size: 20px;
+                font-weight: bold;
+                font-style: italic;
+            }
+
+            #steps{
+                margin: auto;
+                width:400px
+            }
+
+            .step {
+                border-style: solid;
+                border-radius: 10px;
+                background-color: white;
+                width: 300px;
+                height: 60px;
+            }
+
+            .wake{
+                margin-left: 10px;
+            }
+
+            .collect{
+                margin-top: 10px;
+                margin-left: 50px;
+            }
+
+            .escape{
+                margin-top: 10px;
+                margin-left: 90px;
+            }
+
+            .top{
+                border-top-left-radius: 7px;
+                border-top-right-radius: 7px;
+                border-bottom-style: solid;
+                border-bottom-color: white;
+                text-align: center;
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            .wake-top{
+                background-color: red;
+            }
+
+            .collect-top{
+                background-color: yellow;
+            }
+
+            .escape-top{
+                background-color: green;
+            }
+
+            .bottom{
+                text-align: center;
+            }
+            
         </style>
     </head>
-    <body>      
-        <h1>Your Mission</h1>  
+    <body>
+        <div class="header-content">
+            <h1>Stalker</h1>
+            <div class="sub-text">It Is Looking For You</div>  
+        </div>
+        <div id="steps">
+        </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script>
             $.urlParam = function (name) {
@@ -115,9 +191,9 @@
                 console.log(targetAreas[i].name + " : " + targetRooms[i].name);
             }
 
-            $("body").append(`<div>Starting Area: ${targetAreas[0].name} - ${targetRooms[0].name}</div>`);
-            $("body").append(`<div>Second Target: ${targetAreas[1].name} - ${targetRooms[1].name}</div>`);
-            $("body").append(`<div>Finish: ${targetAreas[2].name} - ${targetRooms[2].name} </div>`);
+            $("#steps").append(`<div class="step wake"><div class="top wake-top">Wake Up</div><div class="bottom">${targetAreas[0].name} - ${targetRooms[0].name}</div></div>`);
+            $("#steps").append(`<div class="step collect"><div class="top collect-top">Collect</div><div class="bottom">${targetAreas[1].name} - ${targetRooms[1].name}</div></div>`);
+            $("#steps").append(`<div class="step escape"><div class="top escape-top">Escape</div><div class="bottom">${targetAreas[2].name} - ${targetRooms[2].name}</div></div>`);
         </script>
     </body>
 </html>
