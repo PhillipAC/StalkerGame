@@ -10,9 +10,17 @@
         <style>
         </style>
     </head>
-    <body>        
+    <body>      
+        <h1>Your Mission</h1>  
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script>
+            $.urlParam = function (name) {
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)')
+                                .exec(window.location.search);
+
+                return (results !== null) ? results[1] || 0 : false;
+            }
+
             let Group = function(id, name)
             {
                 this.id = id;
@@ -22,6 +30,7 @@
                 this.id = id;
                 this.name = name;
                 this.adjancentAreaIds = adjancentAreaIds;
+                this.groupId = groupId;
             };
             let Room = function(id, name, areaId)
             {
@@ -35,11 +44,11 @@
                 new Group(1, "Outside")
             ];
             let areas = [
-                new Area(0, "Upstaires", [], 0),
-                new Area(1, "Ground Floor", [], 0),
-                new Area(2, "Basement", [], 0),
-                new Area(3, "Front Yard", [], 1),
-                new Area(4, "Back Yard", [], 1)
+                new Area(0, "Upstairs", [1], 0),
+                new Area(1, "Ground Floor", [0,2], 0),
+                new Area(2, "Basement", [1], 0),
+                new Area(3, "Front Yard", [4], 1),
+                new Area(4, "Back Yard", [3], 1)
             ];
             let rooms = [
                 new Room(0, "Kid's Room", 0),
@@ -58,7 +67,57 @@
                 new Room(13, "Boat House", 4)
             ];
 
+            let selectRandomElement = function(array){
+                let index = Math.floor(Math.random()*array.length);
+                return array[index];
+            }
+
+            let outsideGroup = groups.find(g => g.name == "Outside");
+            let insideGroup = groups.find(g => g.name == "Inside");
+
+            let includeOutside = $.urlParam('includeOutside');
             
+            filteredAreas = areas.filter(a => includeOutside || a.groupId != outsideGroup.id);
+            
+            let targetAreas = [];
+            for(var i = 0; i < 3; i++)
+            {
+                optionalAreas = [];
+                if(targetAreas.length != 0)
+                {
+                    lastArea = targetAreas[targetAreas.length -1];
+                    optionalAreas = filteredAreas.filter(a => {
+                        let index = a.adjancentAreaIds.findIndex(ad => ad == lastArea.id);
+                        return index == -1});
+                    if(optionalAreas.length == 0)
+                    {
+                        optionalAreas = filteredAreas;
+                    }
+                }
+                else{
+                    optionalAreas = filteredAreas;
+                }
+                targetArea = selectRandomElement(optionalAreas);
+                filteredAreas = filteredAreas.filter(a => a.id != targetArea.id)
+                targetAreas.push(targetArea);
+            }
+
+            let targetRooms = [];
+
+            for(var i = 0; i < targetAreas.length; i++)
+            {
+                optionalRooms = rooms.filter(r => r.areaId == targetAreas[i].id);
+                targetRooms.push(selectRandomElement(optionalRooms));
+            }
+
+            for(var i = 0; i < targetRooms.length; i++)
+            {
+                console.log(targetAreas[i].name + " : " + targetRooms[i].name);
+            }
+
+            $("body").append(`<div>Starting Area: ${targetAreas[0].name} - ${targetRooms[0].name}</div>`);
+            $("body").append(`<div>Second Target: ${targetAreas[1].name} - ${targetRooms[1].name}</div>`);
+            $("body").append(`<div>Finish: ${targetAreas[2].name} - ${targetRooms[2].name} </div>`);
         </script>
     </body>
 </html>
