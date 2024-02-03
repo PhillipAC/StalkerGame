@@ -35,8 +35,8 @@
                 border-style: solid;
                 border-radius: 10px;
                 background-color: white;
-                width: 300px;
-                height: 60px;
+                width: 200px;
+                /*height: 60px;*/
             }
 
             .wake{
@@ -54,6 +54,7 @@
             }
 
             .top{
+                padding: 5px;
                 border-top-left-radius: 7px;
                 border-top-right-radius: 7px;
                 border-bottom-style: solid;
@@ -77,6 +78,15 @@
 
             .bottom{
                 text-align: center;
+                padding: 5px;
+            }
+
+            .area{
+                font-weight: bold;
+            }
+
+            .room{
+                font-style: italic;
             }
             
         </style>
@@ -87,6 +97,21 @@
             <div class="sub-text">It Is Looking For You</div>  
         </div>
         <div id="steps">
+            <div class="step wake">
+                <div class="top wake-top">Wake Up</div>
+                <div class="bottom area" id="wake-area"></div>
+                <div class="bottom room" id="wake-room"></div>
+            </div>
+            <div class="step collect">
+                <div class="top collect-top">Collect</div>
+                <div class="bottom area" id="collect-area"></div>
+                <div class="bottom room" id="collect-room"></div>
+            </div>
+            <div class="step escape">
+                <div class="top escape-top">Escape</div>
+                <div class="bottom area" id="escape-area"></div>
+                <div class="bottom room" id="escape-room"></div>
+            </div>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script>
@@ -191,9 +216,12 @@
                 console.log(targetAreas[i].name + " : " + targetRooms[i].name);
             }
 
-            $("#steps").append(`<div class="step wake"><div class="top wake-top">Wake Up</div><div class="bottom">${targetAreas[0].name} - ${targetRooms[0].name}</div></div>`);
-            $("#steps").append(`<div class="step collect"><div class="top collect-top">Collect</div><div class="bottom">${targetAreas[1].name} - ${targetRooms[1].name}</div></div>`);
-            $("#steps").append(`<div class="step escape"><div class="top escape-top">Escape</div><div class="bottom">${targetAreas[2].name} - ${targetRooms[2].name}</div></div>`);
+            $("#wake-area").append(targetAreas[0].name);
+            $('#wake-room').append(targetRooms[0].name);
+            $("#collect-area").append(targetAreas[1].name);
+            $('#collect-room').append(targetRooms[1].name);
+            $("#escape-area").append(targetAreas[2].name);
+            $('#escape-room').append(targetRooms[2].name);
         </script>
     </body>
 </html>
