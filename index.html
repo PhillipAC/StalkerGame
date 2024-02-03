@@ -13,6 +13,52 @@
     <body>        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script>
+            let Group = function(id, name)
+            {
+                this.id = id;
+                this.name = name;
+            };
+            let Area = function(id, name, adjancentAreaIds, groupId){
+                this.id = id;
+                this.name = name;
+                this.adjancentAreaIds = adjancentAreaIds;
+            };
+            let Room = function(id, name, areaId)
+            {
+                this.id = id;
+                this.name = name;
+                this.areaId = areaId;
+            };
+
+            let groups = [
+                new Group(0, "Inside"),
+                new Group(1, "Outside")
+            ];
+            let areas = [
+                new Area(0, "Upstaires", [], 0),
+                new Area(1, "Ground Floor", [], 0),
+                new Area(2, "Basement", [], 0),
+                new Area(3, "Front Yard", [], 1),
+                new Area(4, "Back Yard", [], 1)
+            ];
+            let rooms = [
+                new Room(0, "Kid's Room", 0),
+                new Room(1, "Bedroom", 0),
+                new Room(2, "Front Bedroom", 1),
+                new Room(3, "Common Bathroom", 1),
+                new Room(4, "Kitchen", 1),
+                new Room(5, "Living Room", 1),
+                new Room(6, "Master Bedroom", 1),
+                new Room(7, "Master Bathroom", 1),
+                new Room(8, "Bedroom", 2),
+                new Room(9, "Bathroom", 2),
+                new Room(10, "Play Fort", 3),
+                new Room(11, "Front of Driveway", 3),
+                new Room(12, "Fire Pit", 4),
+                new Room(13, "Boat House", 4)
+            ];
+
+            
         </script>
     </body>
 </html>
